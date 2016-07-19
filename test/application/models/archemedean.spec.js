@@ -2,7 +2,7 @@
 define([
   'underscore',
   'backbone',
-  'models/quadTree'
+  'models/archemedean'
 ], function(_, Backbone, ArchemedeanModel) {
   describe('Model: ArchemedeanModel', function() {
 
