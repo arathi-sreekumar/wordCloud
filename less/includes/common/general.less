@@ -1,0 +1,148 @@
+/* =======  general styles =========*/
+body {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+input {
+    display: inline-block;
+    padding: 0 10px;
+    height: @btn-line-height;;
+    line-height: @btn-line-height;
+    border: 1px solid #D6D6D6;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 #D6D6D6;
+    margin: 3px 5px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    height: auto;
+}
+
+a {
+    color: @link-color;
+    text-decoration: none;
+    &:hover {
+        color: @link-hover-color;
+    }
+}
+
+table {
+    text-align: left;
+    border-top: 2px solid #475959;
+    th, td {
+        border-bottom: 1px dashed #475959;
+        padding: 10px;
+        border-left: 1px dashed #475959;
+
+        &:first-child {
+            border-left: 0;
+            width: 25%;
+        }
+    }
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.arrow-after {
+    &:after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        margin-bottom: -1px;
+        left: 6.5px;
+        top: 8px;
+        border-left: 5px solid @link-color;
+        border-top: 5px solid rgba(0, 0, 0, 0);
+        border-bottom: 5px solid rgba(0, 0, 0, 0);
+        border-right: 0;
+    }
+    &.open {
+        &:after {
+            border-top: 5px solid @link-color;
+            border-left: 5px solid rgba(0, 0, 0, 0);
+            border-right: 5px solid rgba(0, 0, 0, 0);
+            border-bottom: 0;
+            margin-bottom: 2px;
+        }
+    }
+}
+
+.hide {
+    height: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    .transition(all 0.3s ease-out);
+}
+
+.show {
+    height: auto;
+    opacity: 1;
+    padding: 20px;
+    height: auto;
+    overflow: visible;
+    .transition(all 0.3s ease-out);
+}
+
+.toggle-text-hide {
+    display: none;
+}
+
+.skiplinks {
+    display: inline-block;
+    padding: 10px;
+    border: @skiplinks-border;
+    background-color: @skiplinks-bg;
+    color: @skiplinks-color;
+    position: absolute;
+    top: 0;
+    left: -1000px;
+    &:focus {
+        left: 50px;
+    }
+}
