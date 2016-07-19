@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                mainConfigFile: 'js/config.js',
                out: 'js/compiled/compiled.min.js',
                optimize: 'uglify2',
-               include: ['libs/require.js']
+               include: ['libs/require.min.js']
             }
         }
     },
@@ -73,8 +73,7 @@ module.exports = function(grunt) {
     clean: {
       dist: [
         'css/*.css',
-        'js/compiled/*.js',
-        'index.html'
+        'js/compiled/*.js'
       ]
     }
   });
@@ -91,9 +90,9 @@ module.exports = function(grunt) {
 
   // Register tasks
   grunt.registerTask('default', [
+    'clean',
     'requirejs',
     'jshint',
-    'clean',
     'less',
     'inline'
   ]);
