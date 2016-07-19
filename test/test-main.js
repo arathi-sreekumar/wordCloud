@@ -20,6 +20,7 @@ require.config({
     jquery: '../js/libs/jquery-3.0.0.min',
     underscore: '../js/libs/underscore.min',
     backbone: '../js/libs/backbone.min',
+    sinon: '../js/libs/sinon',
     handlebars: '../js/libs/handlebars.min',
     router: '../js/application/router',
     templates: '../templates',
