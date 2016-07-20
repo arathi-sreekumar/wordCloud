@@ -4,7 +4,7 @@ define([
   'underscore',
   'backbone',
   'models/topic'
-], function($, _, Backbone, TopicModel){
+], function ( $, _, Backbone, TopicModel ) {
 
   //Private variables
   var maxVolume, minVolume;
@@ -13,18 +13,18 @@ define([
   //Private functions
   /*
    * Function that gets n log intervals between a start value and an end value
-   * @param total_intervals   the total number of intervals we require
+   * @param totalIntervals   the total number of intervals we require
    * @param start   the starting point for our interval (lowest value of our data)
    * @param end   the last point for our interval (highest value in our data)
   */
-  function getLogIntervals(total_intervals, start, end) {
+  function getLogIntervals ( totalIntervals, start, end ) {
     start = start || 0.1;
-    var startInterVal = 1, endInterval = total_intervals,
+    var startInterVal = 1, endInterval = totalIntervals,
         minLog = Math.log(start), maxLog = Math.log(end),
         scale = (maxLog-minLog) / (endInterval-startInterVal),
         result = [], logPoint, i;
 
-    for (i = 1; i < total_intervals; i++) {
+    for (i = 1; i < totalIntervals; i++) {
       logPoint = Math.exp(minLog + scale*(i - startInterVal));
       result.push(Math.round(logPoint));
     }
@@ -38,14 +38,14 @@ define([
 
     url: '/data/topics.json',
 
-    parse: function (data) {
+    parse: function ( data ) {
       var topics = this.orderTopicsByFrequency(data.topics);
       topics = this.addCloudWeightAndSentimentToTopics(topics);
 
       return topics;
     },
     
-    initialize: function(noOfGroups){
+    initialize: function ( noOfGroups ) {
       this.noOfGroups = noOfGroups || 6;
     },
 
@@ -54,8 +54,8 @@ define([
      * @param: topics   list of all topics for the cloud
      * @return: topcis   sorted by volume
     */
-    orderTopicsByFrequency: function (topics) {
-      topics = _.sortBy(topics, function (topic) {
+    orderTopicsByFrequency: function ( topics ) {
+      topics = _.sortBy(topics, function ( topic ) {
         return -topic.volume;
       });
     
@@ -66,7 +66,7 @@ define([
      * Add cloud weight to topics
      * @param: topics   list of all topics for the cloud sorted in descending order of frequency
     */
-    addCloudWeightAndSentimentToTopics: function (topics) {
+    addCloudWeightAndSentimentToTopics: function ( topics ) {
       var that = this;
       this.maxVolume = topics[0].volume;
       this.minVolume = topics[topics.length - 1].volume;
@@ -82,7 +82,7 @@ define([
      * Add dominating sentiment for each topic
      * @param topic  the topic for hich the dominating sentiment score will be calculated
     */
-    addDominatingSentimentToTopic: function (topic) {
+    addDominatingSentimentToTopic: function ( topic ) {
       //Adding a dominating setinment attribute to topic
       if (topic.sentimentScore > 60) {
         topic.dominatingSentiment = 'positive';
@@ -99,7 +99,7 @@ define([
      * @param: topic   list of all topics for the cloud
      * @return topic   updated topic with cloud weight information
     */
-    addLinearCloudWeightToTopic: function (topic) {
+    addLinearCloudWeightToTopic: function ( topic ) {
       var step = (this.maxVolume - this.minVolume) / (this.noOfGroups - 1),
           weightGroup = Math.floor((topic.volume - this.minVolume) / step);
 
@@ -113,7 +113,7 @@ define([
      * @param: topics   list of all topics for the cloud
      * @return topic   updated topic with cloud weight information
     */
-    addLogarithmicCloudWeightToTopics: function (topic) {
+    addLogarithmicCloudWeightToTopics: function ( topic ) {
       var logIntervals = getLogIntervals(this.noOfGroups, this.minVolume, this.maxVolume);
       var interval;
       for (interval = 0; interval < logIntervals.length; interval++) {

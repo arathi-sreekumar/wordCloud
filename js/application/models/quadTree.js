@@ -2,11 +2,11 @@
 define([
   'underscore',
   'backbone'
-], function(_, Backbone) {
+], function ( _, Backbone ) {
 
   //Private variables and Objects 
-  var max_objects, max_levels;
-  var QuadTreeNode = function (level, bounds) {
+  var maxObjects, maxLevels;
+  var QuadTreeNode = function ( level, bounds ) {
       this.level = level || 0;
       this.objects = [];
       this.nodes = [];
@@ -20,7 +20,7 @@ define([
    * @param Object rectObj2    bounds of the area of second element to be checked, with x, y, width, height
    * @return boolean   true if the two elements collide, else false
   */
-  function isCollide(rectObj1, rectObj2) {
+  function isCollide( rectObj1, rectObj2 ) {
     return !(
         ((rectObj1.y + rectObj1.height) < (rectObj2.y)) ||
         (rectObj1.y > (rectObj2.y + rectObj2.height)) ||
@@ -34,12 +34,12 @@ define([
    * @param QuadTreeNode Object tree  the quad tree node that needs to be split
    * @return QuadTreeNode Object tree  the quad tree node that was modified
   */
-  function split (tree) {
-    var   nextLevel = tree.level + 1,
-      subWidth  = Math.round( tree.bounds.width / 2 ),
-      subHeight   = Math.round( tree.bounds.height / 2 ),
-      x     = Math.round( tree.bounds.x ),
-      y     = Math.round( tree.bounds.y );    
+  function split ( tree ) {
+    var nextLevel = tree.level + 1,
+        subWidth = Math.round( tree.bounds.width / 2 ),
+        subHeight = Math.round( tree.bounds.height / 2 ),
+        x = Math.round( tree.bounds.x ),
+        y = Math.round( tree.bounds.y );
    
     //top right node
     tree.nodes[0] = new QuadTreeNode(nextLevel, {
@@ -82,17 +82,17 @@ define([
    * @param QuadTreeNode Object tree  the quad tree node in whose index we require
    * @return Integer    index of the subnode (0-3), or -1 if rectObj cannot completely fit within a subnode and is part of the parent node
   */
-  function getIndex (rectObj, tree) {
+  function getIndex ( rectObj, tree ) {
     var index = -1,
-      verticalMidpoint  = tree.bounds.x + (tree.bounds.width / 2),
-      horizontalMidpoint  = tree.bounds.y + (tree.bounds.height / 2),
-   
-      //rectObj can completely fit within the top quadrants
-      topQuadrant = (rectObj.y < horizontalMidpoint && rectObj.y + rectObj.height < horizontalMidpoint),
-      
-      //rectObj can completely fit within the bottom quadrants
-      bottomQuadrant = (rectObj.y > horizontalMidpoint);
-     
+        verticalMidpoint  = tree.bounds.x + (tree.bounds.width / 2),
+        horizontalMidpoint  = tree.bounds.y + (tree.bounds.height / 2),
+
+        //rectObj can completely fit within the top quadrants
+        topQuadrant = (rectObj.y < horizontalMidpoint && rectObj.y + rectObj.height < horizontalMidpoint),
+
+        //rectObj can completely fit within the bottom quadrants
+        bottomQuadrant = (rectObj.y > horizontalMidpoint);
+
     //rectObj can completely fit within the left quadrants
     if( rectObj.x < verticalMidpoint && rectObj.x + rectObj.width < verticalMidpoint ) {
       if( topQuadrant ) {
@@ -100,7 +100,7 @@ define([
       } else if( bottomQuadrant ) {
         index = 2;
       }
-      
+
     //rectObj can completely fit within the right quadrants 
     } else if( rectObj.x > verticalMidpoint ) {
       if( topQuadrant ) {
@@ -124,8 +124,7 @@ define([
   */
   function insert ( rectObj, tree ) {
     
-    var   i = 0,
-      index;
+    var i = 0, index;
     
     //if we have subnodes ...
     if( tree.nodes[0] && typeof tree.nodes[0] !== 'undefined' ) {
@@ -139,7 +138,7 @@ define([
    
     tree.objects.push( rectObj );
     
-    if( tree.objects.length > max_objects && tree.level < max_levels ) {
+    if( tree.objects.length > maxObjects && tree.level < maxLevels ) {
       
       //split if we don't already have subnodes
       if( tree.nodes[0] && typeof tree.nodes[0] === 'undefined' ) {
@@ -171,8 +170,8 @@ define([
   */
   function retrieve ( rectObj, tree ) {
     
-    var   index = getIndex( rectObj, tree ),
-      returnObjects = tree.objects;
+    var index = getIndex( rectObj, tree ),
+        returnObjects = tree.objects;
       
     //if we have subnodes ...
     if( tree.nodes[0] && typeof tree.nodes[0] !== 'undefined' ) {
@@ -193,19 +192,19 @@ define([
   }
   
   var QuadTreeModel = Backbone.Model.extend({
-  	
+
     /*
      * Initialize the quad tree
      * @param Object bounds   bounds of the node, object with x, y, width, height
     */
-  	initialize: function (bounds, max_obj, max_lvls) {
+    initialize: function ( bounds, maxObj, maxLvls ) {
       if (bounds) {
         this.tree = new QuadTreeNode(1, bounds);
       }
 
       // Initializing private max variables
-      max_objects = max_obj || 50;
-      max_levels = max_lvls || 6;
+      maxObjects = maxObj || 50;
+      maxLevels = maxLvls || 6;
     },
 
     /*
@@ -213,7 +212,7 @@ define([
      * @param Object rectObj    bounds of the area to be checked, with x, y, width, height
      * @return binary result    true if added successfully, false if there was a collition
     */
-    hasCollision: function (rectObj) {
+    hasCollision: function ( rectObj ) {
       var possibleCollitionObjectList = retrieve(rectObj, this.tree);
       var isColliding = false;
       var index;
