@@ -1,8 +1,8 @@
 <div class="container">
 	<ul>
 	  {{#each topics}}
-	  <li class="word font-{{this.attributes.cloudWeightGroup}} {{this.attributes.dominatingSentiment}}" data-index="{{@index}}">
-	  	{{this.attributes.label}} 
+	  <li>
+	  	<a href="#details" class="word font-{{this.attributes.cloudWeightGroup}} {{this.attributes.dominatingSentiment}}" data-index="{{@index}}">{{this.attributes.label}}</a>
 	  </li>
 	  {{/each}}
 	</ul>
