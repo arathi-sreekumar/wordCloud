@@ -1,13 +1,12 @@
-
-'use strict';
 define([
+  'jquery',
   'underscore',
   'backbone',
-  'sinon',
-  'collections/topics'
-], function(_, Backbone, sinon, TopicsCollection) {
-
-  var mockTopicsData = {topics: [
+  'views/cloud'
+], function($, _, Backbone, CloudView) {
+	describe('Views: Cloud', function() {
+		var view, model;
+    var mockTopicsData = {topics: [
         {"label":"Berlin","volume":165,"sentimentScore":65,"sentiment":{"negative":3,"neutral":133,"positive":29}},
         {"label":"Kantine am Berghain","volume":11,"sentimentScore":59,"sentiment":{"neutral":10,"positive":1}},
         {"label":"London","volume":11,"sentimentScore":77,"sentiment":{"neutral":8,"positive":3}},
@@ -40,81 +39,65 @@ define([
         {"label":"dance music","volume":4,"sentimentScore":50,"sentiment":{"neutral":4}}  
     ]};
 
-  describe('Collections: TopicsCollection', function() {
-
-    beforeEach(function () {
-      this.topics = new TopicsCollection();
-    });
-
-    it('should be defined', function() {
-      expect(TopicsCollection).toBeDefined();
-    });
-
-    it('can be instantiated', function() {
-      var topics = new TopicsCollection();
-      expect(topics).not.toBeNull();
-    });
-
-    describe('#fetch', function() {
-      beforeEach(function () {
+	    beforeEach(function () {
         this.server = sinon.fakeServer.create();
-      });
-      afterEach(function() {
-        this.server.restore();
-      });
-
-      it ('server exists', function() {
-        this.topics.fetch();
-        expect(this.server.requests.length).toEqual(1);
-        expect(this.server.requests[0].method).toEqual("GET");
-        expect(this.server.requests[0].url).toEqual("/data/topics.json");
-      });
-
-      describe('request', function() {
-        beforeEach(function() {
-          this.server.respondWith('GET', '/data/topics.json', [
-            200,
-            { "Content-Type": "application/json" },
-            JSON.stringify(mockTopicsData)
+        this.server.respondWith('GET', '/data/topics.json', [
+          200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(mockTopicsData)
           ]);
-          this.topics.fetch();
+	        view = new CloudView();
+	    });
+
+	    describe('when view is constructing', function () {
+	        it ('should exist', function () {
+	            expect(view).toBeDefined();
+	        });
+	    });
+
+      describe('when retreiving topics for cloud', function () {
+
+        beforeEach(function() {
+          view.render();
           this.server.respond();
         });
 
-        it('check if topics were fetched', function() {
-          expect(this.topics.models).toBeDefined();
-          expect(this.topics.length).toEqual(mockTopicsData.topics.length);
+        it('should have topics', function () {
+          expect(view.topics).toBeDefined();
+          expect(view.topics.length).toEqual(mockTopicsData.topics.length);
         });
 
-        it('check whether the result is ordered by volume in descending order', function () {
-            var randomPosition = Math.floor(Math.random() * mockTopicsData.topics.length) - 1;
-            if (randomPosition < 0) { randomPosition = 0; }
-            expect(this.topics.at(randomPosition).get('volume')).not.toBeLessThan(this.topics.at(randomPosition + 1).get('volume'));
+        it('should have rendered the list elements to el', function () {
+          expect(view.$el.find('li').length).toEqual(mockTopicsData.topics.length);;
         });
 
-        it('check whether the weight for the biggest volume word is highest', function () {
-          expect(this.topics.at(0).get('cloudWeightGroup')).toEqual('xxl'); //get this value from settings
-        });
-
-        it('check whether the weight for the smallest volume word is lowest', function () {
-          expect(this.topics.at(mockTopicsData.topics.length - 1).get('cloudWeightGroup')).toEqual('xs'); //get this value from settings
-        });
-
-        it('check whether the dominating sentiment is calculated correctly for a random sampling', function () {
-          var randomPosition = Math.floor(Math.random() * mockTopicsData.topics.length) + 1;
-          var sentimentScore = this.topics.at(randomPosition).get('sentimentScore');
-          var dominating_sentiment = 'neutral';
-          if (sentimentScore > 60) {
-            dominating_sentiment = 'positive';
-          } else if (sentimentScore <  40) {
-            dominating_sentiment = 'negative';
-          }
-          expect(this.topics.at(randomPosition).get('dominatingSentiment')).toEqual(dominating_sentiment);
+        afterEach(function() {
+          this.server.restore();
         });
 
       });
 
-    });
-  });
+      describe('when rendering cloud', function () {
 
+          beforeEach(function() {
+            
+            spyOn(view, 'initializeDetailsView').and.callThrough();
+            view.render();
+            this.server.respond();
+          });
+
+          afterEach(function() {
+            this.server.restore();
+          });
+
+
+
+          it('should call initializeDetailsView', function () {
+            expect(view.initializeDetailsView).toBeDefined();
+          });
+      });
+      
+
+	});
 });
+
