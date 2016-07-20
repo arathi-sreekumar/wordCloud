@@ -122,6 +122,8 @@ define([
           return topic;
         }
       }
+      // If none match return topic as is 
+      return topic;
     }
 
 
