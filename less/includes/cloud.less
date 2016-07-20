@@ -1,3 +1,8 @@
+@green: #1E824C;
+@grey: #34515E;
+@red: #C0392B;
+
+
 .container {
     position: relative;
     width: 100%;
@@ -17,36 +22,59 @@
 
 .font-xs {
   font-size: 10px;
+  opacity: 0.5;
 }
 
 .font-s {
   font-size: 16px;
+  opacity: 0.6;
 }
 
 .font-m {
-  font-size: 24px;
+  font-size: 20px;
+  opacity: 0.7;
 }
 
 .font-l {
-  font-size: 30px;
+  font-size: 28px;
+  opacity: 0.8;
 }
 
 .font-xl {
-  font-size: 38px;
+  font-size: 36px;
+  opacity: 0.9;
 }
 
 .font-xxl {
   font-size: 46px;
 }
 
+.cloud-details {
+  padding: 20px;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
 .positive {
-    color: green;
+    color: @green;
+}
+
+.positive-details {
+  border-color: @green;
 }
 
 .negative {
-    color: red;
+    color: @red;
+}
+
+.negative-details {
+  border-color: @red;
 }
 
 .neutral {
-    color: grey;
+    color: @grey;
+}
+
+.neutral-details {
+  border-color: @grey;
 }
