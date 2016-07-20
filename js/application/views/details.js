@@ -13,25 +13,25 @@ define([
 
     template: hbs.compile(detailsTemplate),
 
-    initialize: function ( args ) {
-        this.updateData(args.topic);
-        this.listenTo( this.topic, 'change', this.updateData );
-     },
-
-    render: function(){
-      var that = this;
-      this.$el.html(this.template({topic: this.topic}));
+    initialize: function () {
+      this.render();
     },
 
     /*
-     * Update data function to set the latest clicked data to the view object
-     * @param  topic  the topic object that is to be set to the view
+     * Render function sets the default sentiments and renders the template
     */
-    updateData: function ( topic ) {
-      this.topic = topic;
-      this.topic.sentiment.positive = this.topic.sentiment.positive || 0;
-      this.topic.sentiment.neutral = this.topic.sentiment.neutral || 0;
-      this.topic.sentiment.negative = this.topic.sentiment.negative || 0;
+    render: function(){
+      this.model.setSentimentDefaults();
+      this.$el.html(this.template({topic: this.model.toJSON()}));
+    },
+
+    /*
+     * Update Model to the latest clicked data topic model
+     * @param  model  the topic model that is to be set to the view
+    */
+    updateModel: function ( model ) {
+      this.model = model;
+      this.render();
     }
 
 

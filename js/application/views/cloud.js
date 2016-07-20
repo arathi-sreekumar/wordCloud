@@ -33,7 +33,7 @@ define([
 
     /*
      * Processing topics to a cloud
-     * Fetches all topics from the topics collection and creates and displays the cloud
+     * creates and displays the cloud
      * Also renders the details view initializing it with the word with most volume
     */
     processTopics: function () {
@@ -83,11 +83,10 @@ define([
     },
 
     /*
-     * Create and initialize the details view
+     * Create and initialize the details view passing in a topic
     */
     initializeDetailsView: function ( topic ) {
-      this.detailsView = new DetailsView({topic: topic});
-      this.detailsView.render();
+      this.detailsView = new DetailsView({model: topic});
     },
 
     /*
@@ -96,9 +95,8 @@ define([
     */
     renderDetails: function ( e ) {
       var index = $(e.target).data('index');
-      var topic = this.topics[index].attributes; 
-      this.detailsView.updateData(topic);
-      this.detailsView.render();
+      var topic = this.collection.at(index); 
+      this.detailsView.updateModel(topic);
     }
 
   });

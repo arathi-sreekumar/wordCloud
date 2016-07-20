@@ -124,6 +124,14 @@ define([
       }
       // If none match return topic as is 
       return topic;
+    },
+
+    /*
+     * Get most popular word (first element in the sorted topics list)
+     * @return  topic   the most popular topic (highest volume)
+    */
+    getMostPopularTopic: function () {
+      return this.at(0);
     }
 
 

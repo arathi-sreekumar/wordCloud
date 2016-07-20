@@ -1,0 +1,74 @@
+/* Column layout variables */
+@col-full: 100%;
+@col-spacing: 1.6%;
+@sidebar: 27%;
+@main: 100% - @sidebar - @col-spacing;
+@padding: 1%;
+
+/* =============== START GRID CSS for desktops =============== */
+/*  SECTIONS  */
+.block {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
+}
+
+.block:before,
+.block:after {
+    content:"";
+    display:table;
+}
+.block:after {
+    clear:both;
+}
+.block {
+    zoom:1; /* For IE 6/7 */
+}
+/* END SECTIONS */
+
+/*  COLUMN SETUP  */
+.col {
+    display: block;
+    float: left;
+    margin: @col-spacing 0 0 @col-spacing;
+    .border-box();
+}
+
+.col:first-child { margin-left: 0; }
+
+/* END COLUMN SETUP */
+
+
+/* Padded columns */
+.padded {
+    padding: @padding;
+}
+
+/*  TWO COLUMN VARIABLE WIDTH LAYOUT */
+.sidebar {
+    width: @sidebar;
+    margin-top: 20px;
+}
+
+.right {
+    float: right;
+}
+
+.main {
+    width: @main - (2 * @padding);
+}
+
+@media only screen and (max-width: 480px) {
+    /* =============== TWO COLUMN VARIABLE WIDTH LAYOUT for mobiles =============== */
+    .sidebar {
+        width: @col-full;
+    }
+    .main {
+        width: @col-full;
+    }
+
+    /* grid CSS */
+    .col {
+        margin: 1% 0 1% 0%;
+    }
+}
