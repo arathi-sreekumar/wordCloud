@@ -6,10 +6,9 @@ define([
   'backbone',
   'handlebars',
   'models/cloud',
-  'collections/topics',
   'text!templates/cloud.html',
   'views/details'
-], function( $, _, Backbone, hbs, CloudModel, TopicsCollection, cloudTemplate, DetailsView ){
+], function( $, _, Backbone, hbs, CloudModel, cloudTemplate, DetailsView ){
 
   var CloudView = Backbone.View.extend({
     el: $('#cloud'),
@@ -22,7 +21,7 @@ define([
 
     
     initialize: function () {
-      
+
     },
 
     /*
@@ -39,18 +38,11 @@ define([
     */
     processTopics: function () {
 
-      var that = this;
-      var topicsCollection = new TopicsCollection();
+      this.createInitialTopicsHTML(this.collection);
+      this.createTopicCloud();
 
-      topicsCollection.fetch().done(function(collection, response) {
-
-        that.createInitialTopicsHTML(topicsCollection);
-        that.createTopicCloud();
-
-        //Initialize details view with the detils of the most popular word
-        that.initializeDetailsView(that.topics[0].attributes);
-
-      });
+      //Initialize details view with the detils of the most popular word
+      this.initializeDetailsView(this.collection.getMostPopularTopic());
 
     },
 

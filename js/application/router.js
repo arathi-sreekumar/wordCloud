@@ -5,8 +5,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/cloud'
-], function( $, _, Backbone, CloudView ) {
+  'views/cloud',
+  'collections/topics'
+], function ( $, _, Backbone, CloudView, TopicsCollection) {
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -23,18 +24,23 @@ define([
     var app_router = new AppRouter();
     
     app_router.on('route:showCloud', function(){
-   
-        // Call render on the module we loaded in via the dependency array
-        var cloudView = new CloudView();
+      // We have no matching route, lets display the cloud page 
+      var topicsCollection = new TopicsCollection();
+      topicsCollection.fetch().done(function(collection, response) {
+        var cloudView = new CloudView({collection: topicsCollection});
         cloudView.render();
+      });
 
     });
 
     app_router.on('route:defaultAction', function ( actions ) {
-     
-       // We have no matching route, lets display the cloud page 
-        var cloudView = new CloudView();
+      // We have no matching route, lets display the cloud page 
+      var topicsCollection = new TopicsCollection();
+      topicsCollection.fetch().done(function(collection, response) {
+        var cloudView = new CloudView({collection: topicsCollection});
         cloudView.render();
+      });
+
     });
 
     Backbone.history.start();
