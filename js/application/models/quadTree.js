@@ -226,7 +226,6 @@ define([
       if (!isColliding) {
         insert(rectObj, this.tree);
       }
-      console.log(isColliding);
       return isColliding;
     },
 

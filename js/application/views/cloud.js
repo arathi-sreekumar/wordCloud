@@ -9,7 +9,7 @@ define([
   'collections/topics',
   'text!templates/cloud.html',
   'views/details'
-], function($, _, Backbone, hbs, CloudModel, TopicsCollection, cloudTemplate, DetailsView){
+], function( $, _, Backbone, hbs, CloudModel, TopicsCollection, cloudTemplate, DetailsView ){
 
   var CloudView = Backbone.View.extend({
     el: $('#cloud'),
@@ -21,7 +21,7 @@ define([
     },
 
     
-    initialize: function() {     
+    initialize: function () {
       
     },
 
@@ -37,7 +37,7 @@ define([
      * Fetches all topics from the topics collection and creates and displays the cloud
      * Also renders the details view initializing it with the word with most volume
     */
-    processTopics: function() {
+    processTopics: function () {
 
       var that = this;
       var topicsCollection = new TopicsCollection();
@@ -49,7 +49,7 @@ define([
 
         //Initialize details view with the detils of the most popular word
         that.initializeDetailsView(that.topics[0].attributes);
-                
+
       });
 
     },
@@ -59,7 +59,7 @@ define([
      * Get the bounding values for the cloud container
      * @param  topicsCollection  the collection of all topics to form the cloud
     */
-    createInitialTopicsHTML: function(topicsCollection) {
+    createInitialTopicsHTML: function ( topicsCollection ) {
       var that = this;
       this.topics = topicsCollection.models;
       this.$el.html(that.template({topics: that.topics}));
@@ -93,7 +93,7 @@ define([
     /*
      * Create and initialize the details view
     */
-    initializeDetailsView: function(topic) {
+    initializeDetailsView: function ( topic ) {
       this.detailsView = new DetailsView({topic: topic});
       this.detailsView.render();
     },
@@ -102,7 +102,7 @@ define([
      * render the details for the selected topic in the details view
      * @param  e  clicked event object
     */
-    renderDetails: function (e) {
+    renderDetails: function ( e ) {
       var index = $(e.target).data('index');
       var topic = this.topics[index].attributes; 
       this.detailsView.updateData(topic);

@@ -2,7 +2,7 @@
 define([
   'underscore',
   'backbone'
-], function(_, Backbone) {
+], function ( _, Backbone ) {
   
   var ArchemedeanModel = Backbone.Model.extend({
     
@@ -36,7 +36,7 @@ define([
      * @param step  the custom distance between points
      * @param rotation   the custom value for rotation
     */
-    initialize: function (bounds, step, rotation) {
+    initialize: function ( bounds, step, rotation ) {
       bounds = bounds || {x: 200,y: 200, width: 400, height: 400}; //setting some defaults if bounds are missing
       this.centerX = bounds.x + (bounds.width / 2);
       this.centerY = bounds.y + (bounds.height / 2);

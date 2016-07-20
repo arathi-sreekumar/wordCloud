@@ -6,7 +6,7 @@ define([
   'underscore',
   'backbone',
   'views/cloud'
-], function($, _, Backbone, CloudView) {
+], function( $, _, Backbone, CloudView ) {
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -18,7 +18,7 @@ define([
     }
   });
   
-  var initialize = function(){
+  var initialize = function () {
 
     var app_router = new AppRouter();
     
@@ -30,7 +30,7 @@ define([
 
     });
 
-    app_router.on('route:defaultAction', function (actions) {
+    app_router.on('route:defaultAction', function ( actions ) {
      
        // We have no matching route, lets display the cloud page 
         var cloudView = new CloudView();
