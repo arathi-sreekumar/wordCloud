@@ -28,7 +28,9 @@ define([
       var topicsCollection = new TopicsCollection();
       topicsCollection.fetch().done(function(collection, response) {
         var cloudView = new CloudView({collection: topicsCollection});
-        cloudView.render();
+        setTimeout(function () {
+          cloudView.render();
+        }, 2000);
       });
 
     });
@@ -38,7 +40,9 @@ define([
       var topicsCollection = new TopicsCollection();
       topicsCollection.fetch().done(function(collection, response) {
         var cloudView = new CloudView({collection: topicsCollection});
-        cloudView.render();
+        setTimeout(function () {
+          cloudView.render();
+        }, 2000);
       });
 
     });
