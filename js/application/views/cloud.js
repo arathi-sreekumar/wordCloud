@@ -11,7 +11,7 @@ define([
 ], function( $, _, Backbone, hbs, CloudModel, cloudTemplate, DetailsView ){
 
   var CloudView = Backbone.View.extend({
-    el: $('#cloud'),
+    el: '#cloud',
 
     template: hbs.compile(cloudTemplate), 
 
