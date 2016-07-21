@@ -9,7 +9,7 @@ define([
 ], function( $, _, Backbone, hbs, detailsTemplate ) {
 
   var DetailsView = Backbone.View.extend({
-    el: $('#details'),
+    el: '#details',
 
     template: hbs.compile(detailsTemplate),
 
