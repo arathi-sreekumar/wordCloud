@@ -1,3 +1,5 @@
+'use strict';
+
 var allTestFiles = [];
 var TEST_REGEXP = /(spec|test)\.js$/i;
 
@@ -27,12 +29,11 @@ require.config({
     views: '../js/application/views',
     models: '../js/application/models',
     collections: '../js/application/collections',
-    //helper: '../test/helpers',
     test: '../test'
   },
   shim: {
     backbone: {
-      deps: ['underscore', 'jquery'],
+      deps: ['underscore', 'jquery', 'handlebars'],
       exports: 'Backbone'
     }
   },
