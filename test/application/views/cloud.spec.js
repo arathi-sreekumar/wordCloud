@@ -99,17 +99,33 @@ define([
             });
 
             it('should call createInitialTopicsHTML', function () {
-              expect(this.view.createInitialTopicsHTML).toBeDefined();
+              expect(this.view.createInitialTopicsHTML).toHaveBeenCalled();
             });
 
             it('should call createTopicCloud', function () {
-              expect(this.view.createTopicCloud).toBeDefined();
+              expect(this.view.createTopicCloud).toHaveBeenCalled();
             });
 
             it('should call initializeDetailsView', function () {
-              expect(this.view.initializeDetailsView).toBeDefined();
+              expect(this.view.initializeDetailsView).toHaveBeenCalled();
             });
 
+            it('has details view model set to collection[0]', function () {
+              expect(this.view.detailsView.model).toEqual(this.view.collection.at(0));
+            });
+          });
+
+          describe('triggering word click', function () {
+            beforeEach(function() {
+              spyOn(this.view, 'renderDetails').and.callThrough();
+              this.view.render();
+              this.word = $('#cloud .word').eq(5);
+              this.index = this.word.data('index');
+              this.word.trigger('click');
+            });
+            it('should call renderDetails when a word element is clicked', function () {
+              expect(this.view.detailsView.model).toEqual(this.view.collection.at(this.index));
+            });
           });
 
           afterEach(function() {
