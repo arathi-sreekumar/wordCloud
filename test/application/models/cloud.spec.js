@@ -13,8 +13,8 @@ define([
 
     it('can be instantiated', function() {
       var rectBounds = { x: 10, y: 10, height: 100, width: 100 };
-      var archemedeanModel = new CloudModel(rectBounds);
-      expect(archemedeanModel).not.toBeNull();
+      var cloudModel = new CloudModel(rectBounds);
+      expect(cloudModel).not.toBeNull();
     });
 
     it('check whether a word position is obtained when adding first node', function() {

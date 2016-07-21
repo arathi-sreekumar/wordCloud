@@ -42,7 +42,6 @@ define([
         {'label':'dance music','volume':4,'sentimentScore':50,'sentiment':{'neutral':4}}
     ]};
 	describe('Views: Cloud ', function() {
-		var model;
 
     beforeEach(function () {
       this.topics = new TopicsCollection();

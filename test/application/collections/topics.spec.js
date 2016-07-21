@@ -37,7 +37,7 @@ define([
         {'label':'Ben Klock','volume':5,'sentimentScore':50,'sentiment':{'neutral':5}},
         {'label':'club culture','volume':3,'sentimentScore':50,'sentiment':{'neutral':3}},
         {'label':'Live set','volume':4,'sentimentScore':75,'sentiment':{'neutral':3,'positive':1}},
-        {'label':'dance music','volume':4,'sentimentScore':50,'sentiment':{'neutral':4}}  
+        {'label':'dance music','volume':4,'sentimentScore':50,'sentiment':{'neutral':4}}
     ]};
 
   describe('Collections: TopicsCollection', function() {
