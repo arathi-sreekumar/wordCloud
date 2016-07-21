@@ -60,9 +60,23 @@ module.exports = function(grunt) {
       }
     },
 
+    connect: {
+      server: {
+        options: {
+          keepalive: true
+        }
+      },
+      serveropen: {
+        options: {
+          open: true,
+          keepalive: true
+        }
+      }
+    },
+
     watch: {
       styles: {
-        files: [ 'less/*.less'],
+        files: [ 'less/**/*.less'],
         tasks: ['less']
       },
       scripts: {
@@ -87,6 +101,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-inline');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Register tasks
   grunt.registerTask('default', [
@@ -96,6 +111,10 @@ module.exports = function(grunt) {
     'less',
     'inline'
   ]);
+
+  grunt.registerTask('start', 'connect:server');
+
+  grunt.registerTask('start-deploy', 'connect:serveropen');
 
   grunt.registerTask('test', [ 'karma' ]);
 
