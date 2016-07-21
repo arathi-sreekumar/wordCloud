@@ -34,6 +34,7 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.1.0",
     "karma-jasmine": "^1.0.2",
+    "karma-jasmine-jquery": "^0.1.1",
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-requirejs": "^1.0.0",
     "karma-sinon": "^1.0.5",

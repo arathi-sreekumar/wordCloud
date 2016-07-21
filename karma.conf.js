@@ -1,7 +1,7 @@
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', 'requirejs'],
+    frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
     files: [
       'test/test-main.js',
       'js/compiled/compiled.min.js',
