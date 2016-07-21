@@ -1,8 +1,16 @@
 'use strict';
 define([
+  'module',
   'underscore',
   'backbone'
-], function ( _, Backbone ) {
+], function ( module, _, Backbone ) {
+
+  //Private variables
+  var defaults = {
+    CONTAINER_BOUNDS: module.config().CONTAINER_BOUNDS,
+    STEP: module.config().STEP,
+    ROTATION: module.config().ROTATION
+  };
   
   var ArchemedeanModel = Backbone.Model.extend({
     
@@ -16,7 +24,11 @@ define([
     getNextSpiralPosition: function () {
 
       if (this.theta > this.thetaMax) {
+        try {
+          throw 'exceeded container bounds for word cloud';
+        } catch (e) {
           //Todo: handle boundary exceeded case
+        }
       }
 
       var away = this.awayStep * this.theta;
@@ -37,7 +49,7 @@ define([
      * @param rotation   the custom value for rotation
     */
     initialize: function ( bounds, step, rotation ) {
-      bounds = bounds || {x: 200,y: 200, width: 400, height: 400}; //setting some defaults if bounds are missing
+      bounds = bounds || defaults.CONTAINER_BOUNDS; //setting some defaults if bounds are missing
       this.centerX = bounds.x + (bounds.width / 2);
       this.centerY = bounds.y + (bounds.height / 2);
       this.containerHeight = bounds.height;
@@ -46,13 +58,13 @@ define([
       //Maximum outer radius for the spiral
       this.radius = diameter / 2;
       //The interval between points
-      this.step = step || 10;
+      this.step = step || defaults.STEP;
       //Maximum allowed value for angle
       this.thetaMax = ((2 * this.radius) / this.step) * Math.PI;
       // How far to step away from center for each side.
       this.awayStep = this.radius / this.thetaMax;
       // Overall rotation of the spiral. ('0'=no rotation, '1'=360 degrees, '180/360'=180 degrees)
-      this.rotation = rotation || 0;
+      this.rotation = rotation || defaults.ROTATION;
       //Initial value of theta
       this.theta = this.step / this.awayStep;
     }

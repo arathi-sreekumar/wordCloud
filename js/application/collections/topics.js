@@ -1,14 +1,21 @@
 'use strict';
 define([
+  'module',
   'jquery',
   'underscore',
   'backbone',
   'models/topic'
-], function ( $, _, Backbone, TopicModel ) {
+], function ( module, $, _, Backbone, TopicModel ) {
 
   //Private variables
   var maxVolume, minVolume;
-  var fontSizeCategories = ['xs', 's', 'm', 'l', 'xl', 'xxl'];
+  var fontSizeCategories = module.config().fontSizeCategories; //Getting categories from config settings
+  var defaults = {
+      TOPICS_URL: module.config().TOPICS_URL,
+      NO_OF_GROUPS: module.config().NO_OF_GROUPS,
+      POSITIVE_SENTIMENT_THRESHHOLD: module.config().POSITIVE_SENTIMENT_THRESHHOLD,
+      NEGATIVE_SENTIMENT_THRESHHOLD: module.config().NEGATIVE_SENTIMENT_THRESHHOLD
+    };
 
   //Private functions
   /*
@@ -18,7 +25,7 @@ define([
    * @param end   the last point for our interval (highest value in our data)
   */
   function getLogIntervals ( totalIntervals, start, end ) {
-    start = start || 0.1;
+    start = start || 0.1; // This is set to 0.1 if 0 because log(0) is undefined
     var startInterVal = 1, endInterval = totalIntervals,
         minLog = Math.log(start), maxLog = Math.log(end),
         scale = (maxLog-minLog) / (endInterval-startInterVal),
@@ -33,10 +40,10 @@ define([
     return result;
   }
 
-  var ProjectsCollection = Backbone.Collection.extend({
+  var TopicsCollection = Backbone.Collection.extend({
     model: TopicModel,
 
-    url: '/data/topics.json',
+    url: defaults.TOPICS_URL,
 
     parse: function ( data ) {
       var topics = this.orderTopicsByFrequency(data.topics);
@@ -46,7 +53,7 @@ define([
     },
     
     initialize: function ( noOfGroups ) {
-      this.noOfGroups = noOfGroups || 6;
+      this.noOfGroups = noOfGroups || defaults.NO_OF_GROUPS;
     },
 
     /* 
@@ -84,9 +91,9 @@ define([
     */
     addDominatingSentimentToTopic: function ( topic ) {
       //Adding a dominating setinment attribute to topic
-      if (topic.sentimentScore > 60) {
+      if (topic.sentimentScore > defaults.POSITIVE_SENTIMENT_THRESHHOLD) {
         topic.dominatingSentiment = 'positive';
-      } else if (topic.sentimentScore < 40) {
+      } else if (topic.sentimentScore < defaults.NEGATIVE_SENTIMENT_THRESHHOLD) {
         topic.dominatingSentiment = 'negative';
       } else {
         topic.dominatingSentiment = 'neutral';
@@ -137,5 +144,5 @@ define([
 
   });
  
-  return ProjectsCollection;
+  return TopicsCollection;
 });

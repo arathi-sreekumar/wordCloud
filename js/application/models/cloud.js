@@ -37,6 +37,13 @@ define([
      * @param Object bounds   bounds of the node, object with x, y, width, height 
     */
     initialize: function ( bounds ) {
+      if (!bounds) {
+        try {
+          throw 'No container bounds available for word cloud';
+        } catch (e) {
+          //Todo: no container boundary case
+        }
+      }
       this.quadTree = new QuadTree(bounds);
       //this.quadTree.createQuadTree(bounds);
       this.archemedean = new ArchemedeanModel(bounds);

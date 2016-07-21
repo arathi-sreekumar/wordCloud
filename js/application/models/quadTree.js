@@ -1,10 +1,16 @@
 'use strict';
 define([
+  'module',
   'underscore',
   'backbone'
-], function ( _, Backbone ) {
+], function ( module, _, Backbone ) {
 
   //Private variables and Objects 
+  var defaults = {
+    CONTAINER_BOUNDS: module.config().CONTAINER_BOUNDS,
+    MAX_OBJECTS: module.config().MAX_OBJECTS,
+    MAX_LEVELS: module.config().MAX_LEVELS
+  };
   var maxObjects, maxLevels;
   var QuadTreeNode = function ( level, bounds ) {
       this.level = level || 0;
@@ -198,13 +204,13 @@ define([
      * @param Object bounds   bounds of the node, object with x, y, width, height
     */
     initialize: function ( bounds, maxObj, maxLvls ) {
-      if (bounds) {
-        this.tree = new QuadTreeNode(1, bounds);
-      }
+
+      bounds = bounds || defaults.CONTAINER_BOUNDS;
+      this.tree = new QuadTreeNode(1, bounds);
 
       // Initializing private max variables
-      maxObjects = maxObj || 50;
-      maxLevels = maxLvls || 6;
+      maxObjects = maxObj || defaults.MAX_OBJECTS;
+      maxLevels = maxLvls || defaults.MAX_LEVELS;
     },
 
     /*
