@@ -139,6 +139,14 @@ define([
     */
     getMostPopularTopic: function () {
       return this.at(0);
+    },
+
+    /*
+     * Check whether font size categories are defined (this is mainly for testing that this value exists)
+     * return hasFontSizeCategory  boolean that is true if it exists
+    */
+    hasFontCategory: function () {
+      return fontSizeCategories ? true : false;
     }
 
 
