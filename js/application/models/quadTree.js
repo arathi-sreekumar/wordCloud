@@ -236,6 +236,24 @@ define([
     },
 
     /*
+     * Check whether the word is out of bounds
+     * @return  isOutOfBounds   returns true if out of bounds
+    */
+    isOutOfBounds: function ( rectObj ) {
+      // To do, rethink logic so that this returns out of bounds 
+      // for completely being outside each boundary
+      // This function is not yet used
+
+      if ((rectObj.x < this.tree.bounds.x || 
+        (rectObj.x + rectObj.width) > (this.tree.bounds.x + this.tree.bounds.width)) &&
+        ((rectObj.y < this.tree.bounds.y) ||
+        (rectObj.y + rectObj.height) > (this.tree.bounds.y + this.tree.bounds.height))) {
+        return true;
+      }
+      return false;
+    },
+
+    /*
      * Clear the quadtree
      */
     clear: function() {     
