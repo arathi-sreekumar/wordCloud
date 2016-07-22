@@ -54,6 +54,7 @@ define([
     createInitialTopicsHTML: function ( topicsCollection ) {
       var that = this;
       this.topics = topicsCollection.models;
+      this.$el.height($(window).height());
       this.$el.html(that.template({topics: that.topics}));
       this.bounds = {
         height: this.$el.height(), 
