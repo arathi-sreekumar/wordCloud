@@ -105,17 +105,11 @@ module.exports = function(grunt) {
 
   // Register tasks
   grunt.registerTask('default', [
-    'clean',
-    'requirejs',
-    'jshint',
-    'less',
-    'inline'
+    'connect:server'
   ]);
 
-  grunt.registerTask('start', 'connect:server');
+  grunt.registerTask('start', 'connect:serveropen');
 
-  grunt.registerTask('start-deploy', 'connect:serveropen');
-
-  grunt.registerTask('test', [ 'karma' ]);
+  grunt.registerTask('test', 'karma');
 
 };

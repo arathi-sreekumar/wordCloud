@@ -12,7 +12,7 @@ module.exports = function(config) {
     ],
     exclude: [ 'js/main.js' ],
     preprocessors: {
-      'app/**/*.js': ['coverage']
+      '**/application/**/*.js': ['coverage']
     },
     reporters: ['progress', 'coverage'],
     port: 9876,
