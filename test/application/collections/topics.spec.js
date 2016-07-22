@@ -51,8 +51,15 @@ define([
     });
 
     it('can be instantiated', function() {
-      var topics = new TopicsCollection();
-      expect(topics).not.toBeNull();
+      expect(this.topics).not.toBeNull();
+    });
+
+    it('no of groups is defined', function () {
+      expect(this.topics.noOfGroups).toBeDefined();
+    });
+
+    it('There to be font size categories', function () {
+      expect(this.topics.hasFontCategory()).toBeTruthy();
     });
 
     describe('#fetch', function() {
