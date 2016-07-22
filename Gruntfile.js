@@ -66,7 +66,7 @@ module.exports = function(grunt) {
           keepalive: true
         }
       },
-      serveropen: {
+      launch: {
         options: {
           open: true,
           keepalive: true
@@ -105,10 +105,16 @@ module.exports = function(grunt) {
 
   // Register tasks
   grunt.registerTask('default', [
-    'connect:server'
+    'clean',
+    'requirejs',
+    'jshint',
+    'less',
+    'inline'
   ]);
 
-  grunt.registerTask('start', 'connect:serveropen');
+  grunt.registerTask('start', 'connect:server');
+
+  grunt.registerTask('launch', 'connect:launch');
 
   grunt.registerTask('test', 'karma');
 
