@@ -15,7 +15,6 @@ define([
 		    try {
 		      Backbone.history.start({silent:true, pushState:true});
 		    } catch(e) {}
-		    this.router.navigate('elsewhere');
 	    });
 
 	    it('should exist', function () {

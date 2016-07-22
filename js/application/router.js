@@ -47,7 +47,11 @@ define([
 
     });
 
-    Backbone.history.start();
+    try {
+      Backbone.history.start();
+    } catch (e) {
+      // This is to prevent error if router is already started
+    }
   };
   return { 
     initialize: initialize
