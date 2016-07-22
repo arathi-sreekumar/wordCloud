@@ -20,7 +20,7 @@ define([
 
 	    it('should exist', function () {
 	    	expect(this.router).toBeDefined();
-	    })
+	    });
 
 	    //to do test different routes
 
