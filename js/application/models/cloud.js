@@ -38,11 +38,7 @@ define([
     */
     initialize: function ( bounds ) {
       if (!bounds) {
-        try {
-          throw 'No container bounds available for word cloud';
-        } catch (e) {
-          //Todo: no container boundary case
-        }
+        (console ? (console.warn || console.log) : function (m) { return m; })('warning: no container bounds available, defaults used');
       }
       this.quadTree = new QuadTree(bounds);
       //this.quadTree.createQuadTree(bounds);
